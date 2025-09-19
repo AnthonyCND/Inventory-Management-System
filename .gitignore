@@ -1,0 +1,67 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+TestResults/
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# Visual Studio Code
+.vscode/
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+packages/
+*.dll
+*.exe
+
+# Cache and temp files
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlh
+*.tli
+*.tmp
+*.log
+*.vsidx
+*.cache
+*.db
+
+# Other files to ignore
+*.bak
+*.Backup
+*.swp
+*.tmp
+*.dbmdl
+*.jfm
+
+# Publish
+publish/
+*.publishsettings
+
+# Rider / JetBrains IDE
+.idea/
+
+# OS-specific
+.DS_Store
+Thumbs.db
