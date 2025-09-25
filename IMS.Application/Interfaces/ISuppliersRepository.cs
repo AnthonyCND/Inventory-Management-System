@@ -10,10 +10,10 @@ namespace IMS.Application.Interfaces
 {
     public interface ISuppliersRepository
     {
-        Supplier GetSupplier(int id);
-        List<Supplier> GetAllSuppliers();
-        bool AddSupplier(Supplier supplier);
-        bool UpdateSupplier(Supplier supplier);
-        bool DeleteSuppliers(int[] ids);
+        Task<Supplier> GetSupplier(int id);
+        Task<List<Supplier>> GetAllSuppliers();
+        Task<bool> AddSupplier(Supplier supplier);
+        Task<bool> UpdateSupplier(Supplier supplier);
+        Task<bool> DeleteSuppliers(int[] ids);
     }
 }

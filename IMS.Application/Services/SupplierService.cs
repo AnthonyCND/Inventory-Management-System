@@ -1,4 +1,5 @@
-﻿using IMS.Application.DTOs;
+﻿using AutoMapper;
+using IMS.Application.DTOs;
 using IMS.Application.Interfaces;
 using IMS.Domain.Entities;
 using System;
@@ -11,51 +12,92 @@ namespace IMS.Application.Services
 {
     public class SupplierService : ISupplierService
     {
-        private readonly ISuppliersRepository _SuppliersRepository;
+        private readonly ISuppliersRepository _suppliersRepository;
+        private readonly IMapper _mapper;
 
-        public SupplierService(ISuppliersRepository suppliersRepository)
+        public SupplierService(ISuppliersRepository suppliersRepository, IMapper mapper)
         {
-            _SuppliersRepository = suppliersRepository;
+            _suppliersRepository = suppliersRepository;
+            _mapper = mapper;
         }
 
-        public bool AddSupplier(SupplierDTO supplierDTO)
+        public Task<bool> AddSupplier(SupplierDTO supplierDTO)
         {
-            Supplier supplier = new Supplier() 
-            { 
-                Name = supplierDTO.Name,
-                Description = supplierDTO.Description,
-            };
-            return _SuppliersRepository.AddSupplier(supplier);
+            try
+            {
+                var supplier = _mapper.Map<Supplier>(supplierDTO);
+                var added = _suppliersRepository.AddSupplier(supplier);
+                return added;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
-        public bool DeleteSuppliers(int[] ids)
+        public Task<bool> DeleteSuppliers(int[] ids)
         {
-            return _SuppliersRepository.DeleteSuppliers(ids);
+            try
+            {
+                return _suppliersRepository.DeleteSuppliers(ids);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
-        public List<SupplierDTO> GetAllSuppliers()
+        public async Task<List<SupplierDTO>> GetAllSuppliers()
         {
-            List<Supplier> suppliers = _SuppliersRepository.GetAllSuppliers();
-            if (suppliers == null)
-                return new List<SupplierDTO>();
-            
-            return suppliers.Select(s => new SupplierDTO()
+            try
+            {
+                List<Supplier> suppliers = await _suppliersRepository.GetAllSuppliers();
+                if (suppliers == null)
+                    return null;
+
+                return _mapper.Map<List<SupplierDTO>>(suppliers);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<SupplierDTO> GetSupplier(int id)
+        {
+            try
+            {
+                var supplier = await _suppliersRepository.GetSupplier(id);
+                if (supplier == null)
                 {
-                    Id = s.Id,
-                    Name = s.Name,
-                    Description = s.Description,
+                    return null;
                 }
-            ).ToList();
+                return _mapper.Map<SupplierDTO>(supplier);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
-        public SupplierDTO GetSupplier(int id)
+        public Task<bool> UpdateSupplier(SupplierDTO supplierDTO)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var supplier = _mapper.Map<Supplier>(supplierDTO);
+                return _suppliersRepository.UpdateSupplier(supplier);
+            }
+            catch (Exception)
+            {
 
-        public bool UpdateSupplier(SupplierDTO supplierDTO)
-        {
-            throw new NotImplementedException();
+                throw;
+            }
         }
     }
 }

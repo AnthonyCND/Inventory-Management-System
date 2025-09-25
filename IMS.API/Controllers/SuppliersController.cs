@@ -16,48 +16,50 @@ namespace IMS.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetSuppliers() 
+        public async Task<IActionResult> GetSuppliers()
         {
-            List<SupplierDTO> supplierDTOs = _Service.GetAllSuppliers();
-            if (supplierDTOs.Count > 0)
-                return Ok(supplierDTOs);
-            return NotFound();
+            var lSupplierDTOs = await _Service.GetAllSuppliers();
+            if (lSupplierDTOs.Count > 0)
+                return Ok(lSupplierDTOs);
+            return NotFound("No records found");
         }
 
-        [HttpGet]
-        public IActionResult GetSupplierDetails(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSupplierDetails(int id)
         {
-            SupplierDTO supplierDTO = _Service.GetSupplier(id);
+            SupplierDTO supplierDTO = await _Service.GetSupplier(id);
             if (supplierDTO != null)
                 return Ok(supplierDTO);
-            return NotFound();
+            return NotFound("No record found");
         }
 
         [HttpPost]
-        public IActionResult AddSupplier(SupplierDTO supplerDTO)
+        public async Task<IActionResult> AddSupplier(SupplierDTO supplerDTO)
         {
-           bool added = _Service.AddSupplier(supplerDTO);
+           bool added = await _Service.AddSupplier(supplerDTO);
            if (added)
                 return Created();
-           return BadRequest();
+           return BadRequest("Invalid inputs");
         }
 
         [HttpPatch]
-        public IActionResult UpdateSupplier(SupplierDTO supplerDTO) 
+        public async Task<IActionResult> UpdateSupplier(SupplierDTO supplerDTO) 
         {
-            bool updated = _Service.UpdateSupplier(supplerDTO);
+            bool updated = await _Service.UpdateSupplier(supplerDTO);
             if (updated)
                 return NoContent();
-            return BadRequest();
+            return BadRequest("Invalid inputs");
         }
 
         [HttpDelete]
-        public IActionResult RemoveSupplier(int[] ids)
+        public async Task<IActionResult> RemoveSupplier([FromQuery] int[] ids)
         {
-            bool deleted = _Service.DeleteSuppliers(ids);
+            if(ids == null || ids.Length == 0)
+                return BadRequest("No supplier IDs provided");
+            bool deleted = await _Service.DeleteSuppliers(ids);
             if (deleted)
                 return NoContent();
-            return BadRequest();
+            return NotFound("No suppliers matched the provided IDs");
         }
     }
 }

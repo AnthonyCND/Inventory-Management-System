@@ -9,10 +9,10 @@ namespace IMS.Application.Interfaces
 {
     public interface ISupplierService
     {
-        SupplierDTO GetSupplier(int id);
-        List<SupplierDTO> GetAllSuppliers();
-        bool AddSupplier(SupplierDTO supplierDTO);
-        bool UpdateSupplier(SupplierDTO supplierDTO);
-        bool DeleteSuppliers(int[] ids);
+        Task<SupplierDTO> GetSupplier(int id);
+        Task<List<SupplierDTO>> GetAllSuppliers();
+        Task<bool> AddSupplier(SupplierDTO supplierDTO);
+        Task<bool> UpdateSupplier(SupplierDTO supplierDTO);
+        Task<bool> DeleteSuppliers(int[] ids);
     }
 }
