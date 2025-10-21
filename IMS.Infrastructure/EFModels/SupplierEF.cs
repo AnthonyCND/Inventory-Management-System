@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace IMS.Infrastructure.EFModels;
 
@@ -28,4 +25,10 @@ public partial class SupplierEF
 
     [StringLength(200)]
     public string? ContactEmail { get; set; }
+
+    public DateTime? DeletedAT { get; set; }
+
+    // Navigation property
+
+    public ICollection<PurchaseOrderEF> PurchaseOrders { get; set; }
 }

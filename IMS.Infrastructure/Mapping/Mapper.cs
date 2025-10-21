@@ -17,6 +17,10 @@ namespace IMS.Infrastructure.Mapping
             CreateMap<SupplierEF, Supplier>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.SupplierId))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.SupplierName));
+
+            CreateMap<Customer, CustomerEF>();
+            CreateMap<CustomerEF, Customer>();
+              
         }
     }
 }
