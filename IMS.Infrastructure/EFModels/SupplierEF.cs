@@ -25,4 +25,7 @@ public partial class SupplierEF
 
     [StringLength(200)]
     public string? ContactNumber { get; set; }
+
+    [StringLength(200)]
+    public string? ContactEmail { get; set; }
 }
