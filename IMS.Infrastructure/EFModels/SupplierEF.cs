@@ -19,4 +19,10 @@ public partial class SupplierEF
 
     [StringLength(200)]
     public string? Description { get; set; }
+
+    [StringLength(200)]
+    public string? ContactPerson { get; set; }
+
+    [StringLength(200)]
+    public string? ContactNumber { get; set; }
 }
